@@ -1,12 +1,25 @@
 import { useState, useEffect } from "react";
 import FeaturedItem from "./FeaturedItem";
 
+// fetch today's featured item from https://cs571api.cs.wisc.edu/rest/f24/hw3/featured-item 
+// and save it to the feature state variable via its mutator function. As a part of your fetch, 
+// console.log the response body data that you receive.
+
 export default function BadgerMart(props) {
 
     const [feature, setFeature] = useState();
 
     useEffect(() => {
         // TODO I should fetch and setFeature here!
+        fetch("https://cs571.org/rest/f24/hw3/featured-item", { 
+        method: "GET" , headers: { "X-CS571-ID": "bid_98c5657e8b78dd46d95d3bfc60ab9ce817f77ae20fbae7eefdf042a344e41552"}
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setFeature(data);
+            })
+            .catch(error => console.error(error));
     }, []);
 
     return <div>
